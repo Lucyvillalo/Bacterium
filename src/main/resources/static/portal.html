@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Resultados — Laboratorio Bacterium</title>
+    <style>
+        :root {
+            --blue: #1a4fa3;
+            --blue-light: #e8f0fb;
+            --border: #e4e3de;
+            --text: #1e1e1c;
+            --text-muted: #6b6a65;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f8f7; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 40px 16px;
+        }
+        .card {
+            background: #fff; border: 0.5px solid var(--border);
+            border-radius: 12px; padding: 36px 32px;
+            width: 100%; max-width: 440px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .logo {
+            width: 52px; height: 52px; border-radius: 12px;
+            background: var(--blue); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: 700; margin: 0 auto 16px;
+        }
+        h1 { text-align: center; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .sub { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+        label { display: block; font-size: 12px; font-weight: 500;
+                color: var(--text-muted); margin-bottom: 4px; }
+        input {
+            width: 100%; padding: 9px 12px;
+            border: 0.5px solid var(--border); border-radius: 6px;
+            font-size: 14px; margin-bottom: 12px; outline: none;
+        }
+        input:focus { border-color: var(--blue); }
+        button {
+            width: 100%; padding: 10px;
+            background: var(--blue); color: #fff;
+            border: none; border-radius: 6px; font-size: 14px;
+            font-weight: 500; cursor: pointer; margin-top: 4px;
+        }
+        button:hover { background: #2563c4; }
+        .error {
+            background: #fef2f2; color: #b91c1c;
+            border-radius: 6px; padding: 10px 12px;
+            font-size: 13px; margin-bottom: 12px; display: none;
+        }
+        .results-list { margin-top: 20px; }
+        .orden-card {
+            border: 0.5px solid var(--border);
+            border-radius: 8px; padding: 14px 16px;
+            margin-bottom: 10px;
+        }
+        .orden-num { font-weight: 600; font-size: 14px; color: var(--blue); }
+        .orden-fecha { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .btn-pdf {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 10px; padding: 7px 14px;
+            background: var(--blue-light); color: var(--blue);
+            border-radius: 6px; text-decoration: none; font-size: 12px;
+            font-weight: 500; cursor: pointer; border: none; width: auto;
+        }
+        .badge-ok {
+            display: inline-block; padding: 2px 8px; border-radius: 20px;
+            background: #e6f5ed; color: #1a7a4a; font-size: 11px; font-weight: 500;
+        }
+        footer {
+            margin-top: 32px; font-size: 12px; color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">B</div>
+        <h1>Laboratorio Bacterium</h1>
+        <p class="sub">Consulta tus resultados en línea</p>
+
+        <div id="errorMsg" class="error"></div>
+
+        <div id="formSection">
+            <label>Código de paciente</label>
+            <input type="text" id="inCodigo" placeholder="Ej: PAC-2026-000001"
+                   oninput="this.value=this.value.toUpperCase()">
+
+            <label>Número de orden</label>
+            <input type="text" id="inOrden" placeholder="Ej: ORD-2026-000042"
+                   oninput="this.value=this.value.toUpperCase()"
+                   onkeydown="if(event.key==='Enter')buscar()">
+
+            <button onclick="buscar()">Consultar resultados</button>
+        </div>
+
+        <div id="resultSection" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span id="pacienteNombre" style="font-weight:600;font-size:15px;"></span>
+                <button onclick="volver()" style="width:auto;padding:5px 12px;background:none;
+                        border:0.5px solid var(--border);color:var(--text);font-size:12px;
+                        border-radius:6px;cursor:pointer;">← Volver</button>
+            </div>
+            <div id="ordenesList" class="results-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        Los resultados son de carácter confidencial.<br>
+        Ante cualquier duda, consulte con su médico.
+    </footer>
+
+    <script>
+        async function buscar() {
+            const codigo = document.getElementById('inCodigo').value.trim();
+            const orden  = document.getElementById('inOrden').value.trim();
+            const errEl  = document.getElementById('errorMsg');
+            errEl.style.display = 'none';
+
+            if (!codigo || !orden) {
+                errEl.textContent = 'Por favor ingresa el código y el número de orden.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/pacientes/codigo/${encodeURIComponent(codigo)}`);
+                if (!res.ok) throw new Error('Paciente no encontrado.');
+                const paciente = await res.json();
+
+                // Verificar que la orden pertenece al paciente y está lista
+                const ordenRes = await fetch(
+                    `/api/ordenes/portal/${encodeURIComponent(codigo)}/${encodeURIComponent(orden)}/check`);
+                if (!ordenRes.ok) throw new Error('Orden no encontrada o aún no está lista.');
+                const ordenData = await ordenRes.json();
+
+                document.getElementById('pacienteNombre').textContent = paciente.nombreCompleto;
+                document.getElementById('ordenesList').innerHTML = `
+                    <div class="orden-card">
+                        <div class="orden-num">${ordenData.numeroOrden}</div>
+                        <div class="orden-fecha">Recepción: ${formatFecha(ordenData.fechaRecepcion)}</div>
+                        <span class="badge-ok">✓ Resultados disponibles</span>
+                        <br>
+                        <a class="btn-pdf"
+                           href="/api/ordenes/portal/${codigo}/${ordenData.numeroOrden}/pdf"
+                           target="_blank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            Descargar resultados PDF
+                        </a>
+                    </div>`;
+
+                document.getElementById('formSection').style.display = 'none';
+                document.getElementById('resultSection').style.display = '';
+            } catch (e) {
+                errEl.textContent = e.message || 'No se encontraron resultados para ese código y orden.';
+                errEl.style.display = 'block';
+            }
+        }
+
+        function volver() {
+            document.getElementById('formSection').style.display = '';
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+
+        function formatFecha(iso) {
+            if (!iso) return '—';
+            return new Date(iso).toLocaleDateString('es-SV', {
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+    </script>
+</body>
+</html>

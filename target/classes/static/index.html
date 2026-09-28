@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Bacterium</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- ── Barra lateral ──────────────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="lab-logo">B</div>
+        <div>
+            <div class="lab-name">Bacterium</div>
+            <div class="lab-sub">Sistema de laboratorio</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+            Inicio
+        </a>
+        <a href="#" class="nav-item" data-page="pacientes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            Pacientes
+        </a>
+        <a href="#" class="nav-item" data-page="medicos">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 2a5 5 0 100 10A5 5 0 0012 2z"/>
+                <path d="M2 20c0-4 4-7 10-7s10 3 10 7"/>
+                <path d="M12 15v6M9 18h6"/>
+            </svg>
+            Médicos
+        </a>
+        <a href="#" class="nav-item" data-page="ordenes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                <rect x="9" y="3" width="6" height="4" rx="1"/>
+                <path d="M9 12h6M9 16h4"/>
+            </svg>
+            Órdenes
+        </a>
+        <a href="#" class="nav-item" data-page="resultados">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9m-12 12H5a2 2 0 01-2-2V9m0 0h18"/>
+            </svg>
+            Resultados
+        </a>
+        <a href="#" class="nav-item" data-page="usuarios" data-role-admin>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M6 20v-1a4 4 0 014-4h4a4 4 0 014 4v1"/>
+                <path d="M16 3.13a4 4 0 010 7.75"/>
+            </svg>
+            Usuarios
+        </a>
+        <a href="#" class="nav-item" data-page="pruebas" data-role-admin>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M10 2v6L5 19a2 2 0 001.8 3h10.4A2 2 0 0019 19L14 8V2"/>
+                <path d="M8 2h8M7 16h10"/>
+            </svg>
+            Pruebas
+        </a>
+        <a href="#" class="nav-item" data-page="configuracion" data-role-admin>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.6V21a2 2 0 01-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.6-1H3a2 2 0 010-4h.1a1.7 1.7 0 001.6-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 012.8-2.8l.1.1a1.7 1.7 0 001.9.3 1.7 1.7 0 001-1.6V3a2 2 0 014 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9 1.7 1.7 0 001.6 1h.1a2 2 0 010 4h-.1a1.7 1.7 0 00-1.6 1z"/>
+            </svg>
+            Configuracion
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <div class="user-avatar" id="userInitials">?</div>
+            <div>
+                <div id="userName" style="font-weight:500;font-size:13px;">Cargando...</div>
+                <div id="userRole" style="font-size:11px;color:var(--text-muted);">—</div>
+            </div>
+        </div>
+        <button class="btn-logout" onclick="logout()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+            Salir
+        </button>
+    </div>
+</aside>
+
+<!-- ── Contenido principal ────────────────────────────────────────────────── -->
+<main class="main-content">
+    <header class="top-bar">
+        <h1 class="page-title" id="pageTitle">Inicio</h1>
+        <div style="display:flex;gap:8px;align-items:center;">
+            <div id="searchBox" style="display:none;">
+                <input type="search" class="search-input" placeholder="Buscar..." id="searchInput">
+            </div>
+            <button class="btn-primary" id="btnNuevo" style="display:none;" onclick="abrirModalNuevo()">
+                + Nuevo
+            </button>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <section id="page-dashboard" class="page active">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalPacientes">—</div>
+                    <div class="stat-label">Pacientes registrados</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+                        <circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="ordenesPendientes">—</div>
+                    <div class="stat-label">Órdenes pendientes</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="ordenesHoy">—</div>
+                    <div class="stat-label">Órdenes completadas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:1.5rem">
+            <h2 class="card-title">Últimas órdenes recibidas</h2>
+            <table class="data-table">
+                <thead><tr>
+                    <th>No. Orden</th><th>Paciente</th><th>Médico</th>
+                    <th>Recepción</th><th>Estado</th><th>Acciones</th>
+                </tr></thead>
+                <tbody id="tablaOrdenesRecientes"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Pacientes -->
+    <section id="page-pacientes" class="page">
+        <div class="card">
+            <table class="data-table">
+                <thead><tr>
+                    <th>Código</th><th>Nombre completo</th><th>Fecha nac.</th>
+                    <th>Sexo</th><th>Teléfono</th><th>Acciones</th>
+                </tr></thead>
+                <tbody id="tablaPacientes"></tbody>
+            </table>
+            <div class="pagination" id="paginacionPacientes"></div>
+        </div>
+    </section>
+
+    <!-- Médicos -->
+    <section id="page-medicos" class="page">
+        <div class="card">
+            <table class="data-table">
+                <thead><tr>
+                    <th>Nombre completo</th><th>Especialidad</th>
+                    <th>Teléfono</th><th>Estado</th><th>Acciones</th>
+                </tr></thead>
+                <tbody id="tablaMedicos"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Órdenes -->
+    <section id="page-ordenes" class="page">
+        <div class="card">
+            <table class="data-table">
+                <thead><tr>
+                    <th>No. Orden</th><th>Paciente</th><th>Médico</th>
+                    <th>Recepción</th><th>Estado</th><th>Acciones</th>
+                </tr></thead>
+                <tbody id="tablaOrdenes"></tbody>
+            </table>
+            <div class="pagination" id="paginacionOrdenes"></div>
+        </div>
+    </section>
+
+    <!-- Resultados -->
+    <section id="page-resultados" class="page">
+        <div class="card">
+            <h2 class="card-title">Captura de resultados</h2>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-bottom:16px;">
+                <div class="form-group" style="margin-bottom:0">
+                    <label class="form-label">Seleccionar orden</label>
+                    <select id="ordenResultadoSelect" class="form-input"></select>
+                </div>
+                <button class="btn-primary" onclick="cargarFormularioResultados()">Cargar pruebas</button>
+            </div>
+            <div id="formResultados"></div>
+        </div>
+    </section>
+
+    <!-- Usuarios (solo admin) -->
+    <section id="page-usuarios" class="page" data-role-admin>
+        <div class="card">
+            <table class="data-table">
+                <thead><tr>
+                    <th>Usuario</th><th>Nombre</th><th>Correo</th>
+                    <th>Rol</th><th>Estado</th><th>Acciones</th>
+                </tr></thead>
+                <tbody id="tablaUsuarios"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Pruebas (solo admin) -->
+    <section id="page-pruebas" class="page" data-role-admin>
+        <div class="card">
+            <table class="data-table">
+                <thead><tr>
+                    <th>Área</th><th>Prueba</th><th>Unidades</th>
+                    <th>Referencia</th><th>Orden</th><th>Estado</th><th>Acciones</th>
+                </tr></thead>
+                <tbody id="tablaPruebas"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Configuracion (solo admin) -->
+    <section id="page-configuracion" class="page" data-role-admin>
+        <div class="card">
+            <div id="configForm"></div>
+        </div>
+    </section>
+
+    <!-- Modal genérico -->
+    <div class="modal-overlay" id="modalOverlay" onclick="cerrarModal()"></div>
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <h2 id="modalTitulo">Modal</h2>
+            <button onclick="cerrarModal()" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</main>
+
+<!-- ── Login ───────────────────────────────────────────────────────────────── -->
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+        <div class="login-logo">B</div>
+        <h1 class="login-title">Laboratorio Bacterium</h1>
+        <p class="login-sub">Ingresa tus credenciales para continuar</p>
+        <div id="loginError" class="error-msg" style="display:none;"></div>
+        <input type="text" class="form-input" id="loginUser" placeholder="Usuario" style="margin-bottom:8px">
+        <input type="password" class="form-input" id="loginPass" placeholder="Contraseña"
+               onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="btn-primary" style="width:100%;margin-top:10px;" onclick="doLogin()">Ingresar</button>
+        <a href="/portal.html" style="display:block;margin-top:16px;font-size:12px;color:var(--text-muted);text-align:center;">
+            ¿Eres paciente? Consulta tus resultados aquí →
+        </a>
+    </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

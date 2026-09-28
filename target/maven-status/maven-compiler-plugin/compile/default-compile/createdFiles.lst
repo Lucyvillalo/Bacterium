@@ -1,0 +1,11 @@
+com\bacterium\controller\OrdenController$ActualizarPruebasOrdenRequest.class
+com\bacterium\model\Configuracion.class
+com\bacterium\model\OrdenPrueba.class
+com\bacterium\service\ConfiguracionService.class
+com\bacterium\controller\ConfiguracionController.class
+com\bacterium\controller\UsuarioController.class
+com\bacterium\controller\PruebaController$PruebaRequest.class
+com\bacterium\controller\OrdenController$PruebaOrdenRequest.class
+com\bacterium\repository\OrdenPruebaRepository.class
+com\bacterium\repository\ConfiguracionRepository.class
+com\bacterium\controller\UsuarioController$UsuarioRequest.class

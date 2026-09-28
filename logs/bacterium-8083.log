@@ -1,0 +1,30 @@
+2026-05-24T11:18:18.032-06:00  INFO 26452 --- [main] com.bacterium.BacteriumApplication       : Starting BacteriumApplication v1.0.0 using Java 17.0.17 with PID 26452 (C:\Users\lucia\Documents\Codex\2026-05-24\c-users-lucia-downloads-bacterium-completo\target\laboratorio-bacterium-1.0.0.jar started by lucia in C:\Users\lucia\Documents\Codex\2026-05-24\c-users-lucia-downloads-bacterium-completo)
+2026-05-24T11:18:18.039-06:00 DEBUG 26452 --- [main] com.bacterium.BacteriumApplication       : Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-05-24T11:18:18.039-06:00  INFO 26452 --- [main] com.bacterium.BacteriumApplication       : The following 1 profile is active: "dev"
+2026-05-24T11:18:21.428-06:00  INFO 26452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-24T11:18:21.720-06:00  INFO 26452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 261 ms. Found 7 JPA repository interfaces.
+2026-05-24T11:18:24.013-06:00  INFO 26452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2026-05-24T11:18:24.052-06:00  INFO 26452 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-24T11:18:24.055-06:00  INFO 26452 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-24T11:18:24.212-06:00  INFO 26452 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-24T11:18:24.212-06:00  INFO 26452 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5882 ms
+2026-05-24T11:18:24.295-06:00  INFO 26452 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-24T11:18:25.003-06:00  INFO 26452 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:bacterium_dev user=SA
+2026-05-24T11:18:25.011-06:00  INFO 26452 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-24T11:18:25.036-06:00  INFO 26452 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:bacterium_dev'
+2026-05-24T11:18:25.561-06:00  INFO 26452 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-24T11:18:25.820-06:00  INFO 26452 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-24T11:18:25.978-06:00  INFO 26452 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-24T11:18:26.802-06:00  INFO 26452 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-24T11:18:26.935-06:00  WARN 26452 --- [main] org.hibernate.dialect.Dialect            : HHH000511: The 2.2.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2026-05-24T11:18:26.953-06:00  WARN 26452 --- [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-24T11:18:29.609-06:00  INFO 26452 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-24T11:18:29.786-06:00  INFO 26452 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-24T11:18:30.986-06:00 DEBUG 26452 --- [main] com.bacterium.security.JwtAuthFilter     : Filter 'jwtAuthFilter' configured for use
+2026-05-24T11:18:31.661-06:00  INFO 26452 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-24T11:18:33.645-06:00  INFO 26452 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-05-24T11:18:35.111-06:00  INFO 26452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
+2026-05-24T11:18:35.177-06:00  INFO 26452 --- [main] com.bacterium.BacteriumApplication       : Started BacteriumApplication in 18.592 seconds (process running for 20.295)
+2026-05-24T11:18:44.497-06:00  INFO 26452 --- [http-nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-24T11:18:44.497-06:00  INFO 26452 --- [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-24T11:18:44.497-06:00  INFO 26452 --- [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
